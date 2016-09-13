@@ -41,7 +41,19 @@ Utils.deepClone = function (obj) {
         }
     }
     return newobj;
-}
+};
+
+/*
+ * 按名字获取内容,一半用于head meta中
+ * */
+Utils.getContentByName = function (name) {
+    if (document.getElementsByName(name).length == 1) {
+        return document.getElementsByName(name)[0].getAttribute("content");
+    } else {
+        return false;
+    }
+};
+
 /*
  * 删除对象属性
  * */

@@ -10,4 +10,6 @@ import Sound from './Sound'
 import Tween from './Tween'
 import Url from './Url'
 import Video from './Video'
-export {_,Animations,Css,Event,Utils,EventDispatcher,Loader,Device,Sound,Tween,Url,Video}
+import Share from './Share'
+
+export {_,Animations,Css,Event,Utils,EventDispatcher,Loader,Device,Sound,Tween,Url,Video, Share}

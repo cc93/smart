@@ -1,6 +1,6 @@
 {
-  "name": "VuePopup",
-  "description": "a Popup for Vue.js",
+  "name": "smart",
+  "description": "more utils to javascript",
   "author": "johnnyGoo <157781745@qq.com>",
   "private": true,
   "scripts": {
