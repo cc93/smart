@@ -53,7 +53,29 @@ Utils.getContentByName = function (name) {
         return false;
     }
 };
+/*
+ * 获取js
+ * */
+Utils.getScript = function (src, callback) {
+    var head = document.getElementsByTagName("head")[0] || document.documentElement;
+    var script = document.createElement("script");
+    script.async = "true";
+    script.src = src;
+    var done = false;
+    // 加载完毕后执行
+    script.onload = script.onreadystatechange = function () {
+        if (!done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete")) {
+            done = true;
+            try {
+                callback(script);
+            } catch (err) {
+            }
+            script.onload = script.onreadystatechange = null;
+        }
+    };
 
+    head.insertBefore(script, head.firstChild);
+};
 /*
  * 删除对象属性
  * */
