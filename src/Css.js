@@ -127,6 +127,16 @@ function transformObject(obj, ext) {
     return fixCss('transform', transformString(obj, ext))
 }
 
+/**
+ * cssObjToString
+ */
+Css.cssObjToString = function (obj) {
+    var str = '';
+    _.each(obj, function (v, k) {
+        str += k + ':' + v + ';';
+    });
+    return '{' + str + '}';
+};
 
 /**
  * 添加css样式到文档
@@ -151,7 +161,7 @@ Css.smartObject = function (obj, ext) {
     var cssObj = {};
     _.each(obj, function (value, key) {
         // cssObj[key] = withExt(key, value, ext);
-        if (Utils.match(key, '^transition|^animation|^transform-|^perspective|^backface-visibility|^filter')) {
+        if (Utils.match(key, '^transition|^animation|^transform|^perspective|^backface-visibility|^filter')) {
             _.extend(cssObj, fixCss(key, withExt(key, value, ext)))
         } else {
             cssObj[key] = withExt(key, value, ext);
@@ -159,6 +169,7 @@ Css.smartObject = function (obj, ext) {
     });
     return _.extend(transform, cssObj);
 };
+
 /**
  * 添加css样式到文档
  */

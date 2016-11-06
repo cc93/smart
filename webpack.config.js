@@ -2,7 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/Smart.js',
+  entry: './src/smart.js',
   output: {
     path: path.resolve(__dirname, './dist'),
      publicPath: '/dist/',

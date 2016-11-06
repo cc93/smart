@@ -5,6 +5,7 @@
  */
 import Css from './Css'
 import _ from 'underscore'
+import Utils from './Utils'
 
 // Utility
 
@@ -186,13 +187,6 @@ Animations.prototype.getDynamicSheet = function () {
 };
 
 Animations.prototype.create = function (name, frames) {
-
-
-    
-
-    
-
-
     var styles = this.getDynamicSheet();
 
     // frames can also be passed as the first parameter
@@ -200,8 +194,8 @@ Animations.prototype.create = function (name, frames) {
         frames = name;
         name = null;
     }
-    _.each(frames,function (obj,index) {
-        frames[index]=Css.smartObject(obj);
+    _.each(frames, function (obj, index) {
+        frames[index] = Css.smartObject(obj);
     })
 
     if (!name) {
@@ -232,6 +226,37 @@ Animations.prototype.create = function (name, frames) {
     }
 
     return anim;
+};
+
+
+
+Animations.prototype.createSmartAnimation = function (name, frames) {
+    var ext = 'px';//默认单位是px
+    var smartObjects;
+    //提取单位
+    if (Utils.isString(_.last(frames))) {
+        ext = _.last(frames);
+        smartObjects = _.without(frames, ext);
+    } else {
+        smartObjects = frames;
+    }
+    var keyFramesStr = '@keyframes ' + name + ' {';
+    var keyFramesStr2 = '@-webkit-keyframes ' + name + ' {';
+
+    var steps = smartObjects.length - 1;
+    var stepStr = '';
+    var framesStr = '';
+    _.each(smartObjects, function (obj, index) {
+        stepStr = parseInt(index / steps * 100) + '%';
+        console.log('stepStr = '+ stepStr + '\n index = ' + index);
+        framesStr+= stepStr + Css.cssObjToString(Css.smartObject(obj, ext));
+    });
+
+    keyFramesStr+=framesStr + ' }';
+    keyFramesStr2+=framesStr+ ' }';
+    console.log('keyframes = '+ keyFramesStr + ' '+ keyFramesStr2);
+    Css.createCssString(keyFramesStr + ' '+ keyFramesStr2);
+    return 1;
 };
 
 Animations.prototype.remove = function (name) {
